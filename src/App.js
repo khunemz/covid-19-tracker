@@ -1,9 +1,11 @@
 import React , { useState , useEffect } from 'react';
-import MapView from './components/MapView';
 import Axios from 'axios'
 import 'leaflet/dist/leaflet.css'
 import './css/App.scss'
 import {VARIABLES} from './constants/Constants'
+import MapView from './components/MapView';
+import ListView from './components/ListView';
+
 
 function App() {
 
@@ -21,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      <ListView locationArray={locationArray} />
       <MapView locationArray={locationArray} />
     </div>
   );

@@ -1,0 +1,27 @@
+@import '../../css/Var';
+
+.list-view {
+    background-color: $white-ter;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 322px;
+    z-index: 30;
+}
+
+.list-view-brand, .list-view-total {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    flex-shrink: 0;
+    padding: 20px;
+}
+
+list-view-locations {
+    border-bottom: 1px solid #777;
+    flex-grow: 1;
+    position: relative;
+    overflow-y: auto;
+}
