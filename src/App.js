@@ -11,10 +11,18 @@ function App() {
 
   const [locationArray, setLocationArray] = useState([])
 
+  function sortedLocationArray(locations) {
+    return [...locations].sort((location1 , location2) => {
+      return location2.latest.confirmed - location1.latest.confirmed;
+    })
+  }
+
   // load api after componentDidMount
   useEffect(()=>{
     Axios.get(VARIABLES.API_URL+`v2/locations`).then(res => {
-      setLocationArray(res.data.locations)
+      // sorting array
+      const sortedLocations = sortedLocationArray(res.data.locations)
+      setLocationArray(sortedLocations)
     }).catch(error => {
       console.log(error)
     })

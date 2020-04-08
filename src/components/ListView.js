@@ -6,8 +6,41 @@ const totalKeyArray = ['confirmed' , 'recovered' , 'deaths'];
 
 export default function ListView(props) {
     const { locationArray } = props;
-    console.log(locationArray);
+    
+    const locationElements = locationArray.map((location) => {
+        const {
+            id , 
+            country , 
+            province ,           
+            latest: {confirmed}
+         } = location;
 
+      
+
+        let title = `${country}-(${confirmed})`
+        if (province !== '' && province !== country) {
+            title = `${province}-${country}-(${confirmed})`;
+        }
+
+        let locationClass = 'list-view-location';
+        // if (selectedLocation !== null) {
+        //     if (location.id === selectedLocation.id) {
+        //         locationClass += ' selected';
+        //     }
+        // }
+        return (
+            <div key={`${id}-${country}`}  className={locationClass}>
+                <div className="columns">
+                <div className="column">
+                    <h6 className="title is-6">{title}</h6>
+                </div>
+                <div className="column">
+                    <h6 className="title is-6">{confirmed}</h6>
+                </div>
+            </div>
+            </div>
+        )       
+    }); // END : location elements
     const totalElements = totalKeyArray.map( (key) => {
      
         const sum = locationArray.reduce( (sum , location) => {
@@ -29,7 +62,7 @@ export default function ListView(props) {
     });
 
 
-    
+
 
     return (
         <div className="list-view">
@@ -40,15 +73,8 @@ export default function ListView(props) {
                     <h2 className="title is-4">Total</h2>
                     {totalElements}
                 </div>
-                <div className="list-view-location">
-                    <div className="columns">
-                        <div className="column">
-                            <h6 className="title is-6">Country</h6>
-                        </div>
-                        <div className="column">
-                            <h6 className="title is-6">1234</h6>
-                        </div>
-                    </div>
+                <div className="list-view-locations">
+                    {locationElements}
                 </div>          
         </div>
     )
