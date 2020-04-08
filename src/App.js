@@ -12,6 +12,7 @@ function App() {
 
   const [locationArray, setLocationArray] = useState([])
   const [selectedLocation , setSelectedLocation] = useState(null);
+  const [mapCenter , setMapCenter] = useState([13.75398, 100.50144])
 
   function sortedLocationArray(locations) {
     return [...locations].sort((location1 , location2) => {
@@ -28,6 +29,9 @@ function App() {
         }
 
         setSelectedLocation(location);
+        const { coordinates: {latitude, longitude}} = location;
+
+        setMapCenter([latitude, longitude])
       
     },
     [locationArray],
@@ -63,7 +67,10 @@ function App() {
         onSelectItem={onSelectLocation}
         onDeSelectItem={onDeSelectLocation}
       />
-      <MapView locationArray={locationArray} />
+      <MapView locationArray={locationArray} 
+        mapCenter={mapCenter}
+        onSelectMarker={onSelectLocation}
+      />
       {detailsView}
     </div>
   );
