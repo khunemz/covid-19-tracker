@@ -5,7 +5,24 @@ import React  from 'react'
 const totalKeyArray = ['confirmed' , 'recovered' , 'deaths'];
 
 export default function ListView(props) {
-    const { locationArray } = props;
+    const { locationArray
+        , selectedLocation 
+        , onSelectItem 
+        , onDeselectItem } = props;
+
+
+    function onClickItem(id) {
+        if(selectedLocation === null) {
+            onSelectItem(id)
+        }
+        else if (selectedLocation.id !== id) {
+            onSelectItem(id)
+        }
+        else {
+            onDeselectItem();
+        }
+
+    }
     
     const locationElements = locationArray.map((location) => {
         const {
@@ -14,7 +31,6 @@ export default function ListView(props) {
             province ,           
             latest: {confirmed}
          } = location;
-
       
 
         let title = `${country}-(${confirmed})`
@@ -23,13 +39,17 @@ export default function ListView(props) {
         }
 
         let locationClass = 'list-view-location';
-        // if (selectedLocation !== null) {
-        //     if (location.id === selectedLocation.id) {
-        //         locationClass += ' selected';
-        //     }
-        // }
+        if (selectedLocation !== null) {
+            if (location.id === selectedLocation.id) {
+                locationClass += ' selected';
+            }
+        }
+        
         return (
-            <div key={`${id}-${country}`}  className={locationClass}>
+            <div key={`${id}-${country}`}  
+                className={locationClass}
+                onClick={() => onClickItem(id)}    
+            >
                 <div className="columns">
                 <div className="column">
                     <h6 className="title is-6">{title}</h6>
@@ -47,9 +67,7 @@ export default function ListView(props) {
             return sum + location.latest[key]; // confirmed
         } , 0);
 
-
         return (
-
             <div key={key} className="columns">
                 <div className="column">
                     <h6 className="title is-6">{key}</h6>

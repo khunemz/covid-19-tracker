@@ -45,5 +45,11 @@
     &:hover {
         background-color: #eeeeee;
     }
+
+    &.selected,
+    &.selected .title {
+        color: $white;
+        background-color: $black-ter;
+    }
 }
 
